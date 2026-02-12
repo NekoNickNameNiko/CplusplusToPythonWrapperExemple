@@ -11,5 +11,4 @@ Library/glm/copying.txt
 Library/glm/manual.md
 Library/glm/readme.md
 *.o
-*.obj
 *.exe
