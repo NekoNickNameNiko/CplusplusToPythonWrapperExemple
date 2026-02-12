@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Nouveau profil",
+    "Projects": [
+      {
+        "Path": "OpenGL_Modern\\OpenGL_Modern.vcxproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

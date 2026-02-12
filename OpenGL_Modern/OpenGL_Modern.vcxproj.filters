@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Code\src\buffer.cpp" />
+    <ClCompile Include="Code\src\Exceptions\GladInitializeFailException.cpp" />
+    <ClCompile Include="Code\src\Exceptions\WindowCreationFailException.cpp" />
+    <ClCompile Include="Code\src\application.cpp" />
+    <ClCompile Include="Code\src\Exceptions\CompileShaderFailException.cpp" />
+    <ClCompile Include="Code\src\Exceptions\NoShaderFoundException.cpp" />
+    <ClCompile Include="Code\src\Debug.cpp" />
+    <ClCompile Include="Code\src\shader.cpp" />
+    <ClCompile Include="glad\src\glad.c" />
+    <ClCompile Include="OpenGL_Modern.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Matrix2.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Matrix3.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Matrix4.cpp" />
+    <ClCompile Include="Toolbox3D\Source\MatrixMxN.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Vector2.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Vector3.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Vector4.cpp" />
+    <ClCompile Include="Toolbox3D\Source\VectorND.cpp" />
+    <ClCompile Include="Code\src\camera.cpp" />
+    <ClCompile Include="Code\src\Exceptions\NoProjectionMatrixException.cpp" />
+    <ClCompile Include="Code\src\transform.cpp" />
+    <ClCompile Include="Code\src\Textures.cpp" />
+    <ClCompile Include="Code\src\Mesh.cpp" />
+    <ClCompile Include="Code\src\model.cpp" />
+    <ClCompile Include="Code\src\scene.cpp" />
+    <ClCompile Include="Code\src\Light.cpp" />
+    <ClCompile Include="Code\src\material.cpp" />
+    <ClCompile Include="Code\src\sceneNode.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Code\include\application.h" />
+    <ClInclude Include="Code\include\buffer.h" />
+    <ClInclude Include="Code\include\Debug.h" />
+    <ClInclude Include="Code\include\exceptions\CompileShaderFailException.h" />
+    <ClInclude Include="Code\include\exceptions\GladInitializeFailException.h" />
+    <ClInclude Include="Code\include\exceptions\NoShaderFoundException.h" />
+    <ClInclude Include="Code\include\exceptions\WindowCreationFailException.h" />
+    <ClInclude Include="Code\include\shader.h" />
+    <ClInclude Include="glad\include\glad\glad.h" />
+    <ClInclude Include="glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="Toolbox3D\Include\Matrix2.h" />
+    <ClInclude Include="Toolbox3D\Include\Matrix3.h" />
+    <ClInclude Include="Toolbox3D\Include\Matrix4.h" />
+    <ClInclude Include="Toolbox3D\Include\MatrixMxN.h" />
+    <ClInclude Include="Toolbox3D\Include\Vector2.h" />
+    <ClInclude Include="Toolbox3D\Include\Vector3.h" />
+    <ClInclude Include="Toolbox3D\Include\Vector4.h" />
+    <ClInclude Include="Toolbox3D\Include\VectorND.h" />
+    <ClInclude Include="Code\include\Interface.h" />
+    <ClInclude Include="Code\include\ResourceManager.h" />
+    <ClInclude Include="Code\include\camera.h" />
+    <ClInclude Include="Code\include\exceptions\NoProjectionMatrixException.h" />
+    <ClInclude Include="Code\include\model.h" />
+    <ClInclude Include="Code\include\transform.h" />
+    <ClInclude Include="Code\include\Mesh.h" />
+    <ClInclude Include="Code\include\CommonInclude.h" />
+    <ClInclude Include="Code\include\ExterneLibrary.h" />
+    <ClInclude Include="Code\include\Textures.h" />
+    <ClInclude Include="Code\include\scene.h" />
+    <ClInclude Include="Code\include\Light.h" />
+    <ClInclude Include="Code\include\material.h" />
+    <ClInclude Include="Code\include\sceneNode.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Toolbox3D\Inline\Matrix3.inl" />
+    <None Include="Toolbox3D\Inline\Matrix4.inl" />
+    <None Include="Toolbox3D\Inline\Matrix2.inl" />
+  </ItemGroup>
+</Project>

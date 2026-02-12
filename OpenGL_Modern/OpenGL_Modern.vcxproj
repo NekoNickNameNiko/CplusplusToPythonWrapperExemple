@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{62fb3023-9956-4a4a-9a48-788b277e5193}</ProjectGuid>
+    <RootNamespace>OpenGLModern</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>;glad\include\glad;Code\include;glad\include\KHR</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>;glad\include\glad;Code\include;glad\include\KHR</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../Library/glfw-3.4.bin.WIN64/include;glad\include\glad;Code\include;glad\include\KHR;Code\include\exceptions;..\Library\stb</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Library/glfw-3.4.bin.WIN64/lib-vc2022</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../Library/glfw-3.4.bin.WIN64/include;glad\include\glad;Code\include;glad\include\KHR;Code\include\exceptions;..\Library\stb</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Library/glfw-3.4.bin.WIN64/lib-vc2022</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Code\src\material.cpp" />
+    <ClCompile Include="Code\src\scene.cpp" />
+    <ClCompile Include="Code\src\Light.cpp" />
+    <ClCompile Include="Code\src\model.cpp" />
+    <ClCompile Include="Code\src\Mesh.cpp" />
+    <ClCompile Include="Code\src\sceneNode.cpp" />
+    <ClCompile Include="Code\src\Textures.cpp" />
+    <ClCompile Include="Code\src\transform.cpp" />
+    <ClCompile Include="Code\src\Exceptions\NoProjectionMatrixException.cpp" />
+    <ClCompile Include="Code\src\camera.cpp" />
+    <ClCompile Include="Code\src\buffer.cpp" />
+    <ClCompile Include="Code\src\Exceptions\GladInitializeFailException.cpp" />
+    <ClCompile Include="Code\src\Exceptions\WindowCreationFailException.cpp" />
+    <ClCompile Include="Code\src\application.cpp" />
+    <ClCompile Include="Code\src\Exceptions\CompileShaderFailException.cpp" />
+    <ClCompile Include="Code\src\Exceptions\NoShaderFoundException.cpp" />
+    <ClCompile Include="Code\src\Debug.cpp" />
+    <ClCompile Include="Code\src\shader.cpp" />
+    <ClCompile Include="glad\src\glad.c" />
+    <ClCompile Include="OpenGL_Modern.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Matrix2.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Matrix3.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Matrix4.cpp" />
+    <ClCompile Include="Toolbox3D\Source\MatrixMxN.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Vector2.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Vector3.cpp" />
+    <ClCompile Include="Toolbox3D\Source\Vector4.cpp" />
+    <ClCompile Include="Toolbox3D\Source\VectorND.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Code\include\application.h" />
+    <ClInclude Include="Code\include\buffer.h" />
+    <ClInclude Include="Code\include\camera.h" />
+    <ClInclude Include="Code\include\CommonInclude.h" />
+    <ClInclude Include="Code\include\Debug.h" />
+    <ClInclude Include="Code\include\exceptions\CompileShaderFailException.h" />
+    <ClInclude Include="Code\include\exceptions\GladInitializeFailException.h" />
+    <ClInclude Include="Code\include\exceptions\NoProjectionMatrixException.h" />
+    <ClInclude Include="Code\include\exceptions\NoShaderFoundException.h" />
+    <ClInclude Include="Code\include\exceptions\WindowCreationFailException.h" />
+    <ClInclude Include="Code\include\ExterneLibrary.h" />
+    <ClInclude Include="Code\include\Interface.h" />
+    <ClInclude Include="Code\include\Light.h" />
+    <ClInclude Include="Code\include\Mesh.h" />
+    <ClInclude Include="Code\include\model.h" />
+    <ClInclude Include="Code\include\ResourceManager.h" />
+    <ClInclude Include="Code\include\scene.h" />
+    <ClInclude Include="Code\include\sceneNode.h" />
+    <ClInclude Include="Code\include\shader.h" />
+    <ClInclude Include="Code\include\Textures.h" />
+    <ClInclude Include="Code\include\transform.h" />
+    <ClInclude Include="Code\include\material.h" />
+    <ClInclude Include="glad\include\glad\glad.h" />
+    <ClInclude Include="glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="Toolbox3D\Include\Matrix2.h" />
+    <ClInclude Include="Toolbox3D\Include\Matrix3.h" />
+    <ClInclude Include="Toolbox3D\Include\Matrix4.h" />
+    <ClInclude Include="Toolbox3D\Include\MatrixMxN.h" />
+    <ClInclude Include="Toolbox3D\Include\Vector2.h" />
+    <ClInclude Include="Toolbox3D\Include\Vector3.h" />
+    <ClInclude Include="Toolbox3D\Include\Vector4.h" />
+    <ClInclude Include="Toolbox3D\Include\VectorND.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Toolbox3D\Inline\Matrix2.inl" />
+    <None Include="Toolbox3D\Inline\Matrix3.inl" />
+    <None Include="Toolbox3D\Inline\Matrix4.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
