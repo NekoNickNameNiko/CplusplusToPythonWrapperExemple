@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>..\Library\pybind11-3.0.1\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -106,14 +109,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../Library/glfw-3.4.bin.WIN64/include;glad\include\glad;Code\include;glad\include\KHR;Code\include\exceptions;..\Library\stb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Library/glfw-3.4.bin.WIN64/include;glad\include\glad;Code\include;glad\include\KHR;Code\include\exceptions;..\Library\stb;..\Library\pybind11-3.0.1\include;C:\Users\TANG\AppData\Local\Programs\Python\Python313\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../Library/glfw-3.4.bin.WIN64/lib-vc2022</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Library/glfw-3.4.bin.WIN64/lib-vc2022;C:\Users\TANG\AppData\Local\Programs\Python\Python313\libs</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;python313.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -124,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../Library/glfw-3.4.bin.WIN64/include;glad\include\glad;Code\include;glad\include\KHR;Code\include\exceptions;..\Library\stb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Library/glfw-3.4.bin.WIN64/include;glad\include\glad;Code\include;glad\include\KHR;Code\include\exceptions;..\Library\stb;..\Library\pybind11-3.0.1\include;C:\Users\TANG\AppData\Local\Programs\Python\Python313\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -132,11 +135,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../Library/glfw-3.4.bin.WIN64/lib-vc2022</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Library/glfw-3.4.bin.WIN64/lib-vc2022;C:\Users\TANG\AppData\Local\Programs\Python\Python313\libs</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;python313.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Code\python\PythonUtility\PyInspector.cpp" />
+    <ClCompile Include="Code\python\PythonUtility\PyScripts.cpp" />
+    <ClCompile Include="Code\python\PythonUtility\PyUtility.cpp" />
     <ClCompile Include="Code\src\material.cpp" />
     <ClCompile Include="Code\src\scene.cpp" />
     <ClCompile Include="Code\src\Light.cpp" />
@@ -189,6 +195,9 @@
     <ClInclude Include="Code\include\Textures.h" />
     <ClInclude Include="Code\include\transform.h" />
     <ClInclude Include="Code\include\material.h" />
+    <ClInclude Include="Code\python\PythonUtility\PyInspector.h" />
+    <ClInclude Include="Code\python\PythonUtility\PyScripts.h" />
+    <ClInclude Include="Code\python\PythonUtility\PyUtility.h" />
     <ClInclude Include="glad\include\glad\glad.h" />
     <ClInclude Include="glad\include\KHR\khrplatform.h" />
     <ClInclude Include="Toolbox3D\Include\Matrix2.h" />
@@ -201,6 +210,7 @@
     <ClInclude Include="Toolbox3D\Include\VectorND.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Code\python\example_script.py" />
     <None Include="Toolbox3D\Inline\Matrix2.inl" />
     <None Include="Toolbox3D\Inline\Matrix3.inl" />
     <None Include="Toolbox3D\Inline\Matrix4.inl" />

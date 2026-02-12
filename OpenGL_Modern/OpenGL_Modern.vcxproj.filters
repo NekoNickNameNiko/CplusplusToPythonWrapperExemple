@@ -29,6 +29,9 @@
     <ClCompile Include="Code\src\Light.cpp" />
     <ClCompile Include="Code\src\material.cpp" />
     <ClCompile Include="Code\src\sceneNode.cpp" />
+    <ClCompile Include="Code\python\PythonUtility\PyUtility.cpp" />
+    <ClCompile Include="Code\python\PythonUtility\PyScripts.cpp" />
+    <ClCompile Include="Code\python\PythonUtility\PyInspector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\include\application.h" />
@@ -63,10 +66,14 @@
     <ClInclude Include="Code\include\Light.h" />
     <ClInclude Include="Code\include\material.h" />
     <ClInclude Include="Code\include\sceneNode.h" />
+    <ClInclude Include="Code\python\PythonUtility\PyUtility.h" />
+    <ClInclude Include="Code\python\PythonUtility\PyScripts.h" />
+    <ClInclude Include="Code\python\PythonUtility\PyInspector.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Toolbox3D\Inline\Matrix3.inl" />
     <None Include="Toolbox3D\Inline\Matrix4.inl" />
     <None Include="Toolbox3D\Inline\Matrix2.inl" />
+    <None Include="Code\python\example_script.py" />
   </ItemGroup>
 </Project>
