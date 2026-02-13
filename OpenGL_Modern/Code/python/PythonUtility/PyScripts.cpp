@@ -8,7 +8,6 @@ bool Bwt::PyScripts::InitModule(const char* filename)
 		m_name = filename; // Get the Name (use for ? idk)
 
 		m_module = pybind11::module_::import(filename); // Import module
-		pybind11::list attrs = m_module.attr("__dir__")(); // Get all attribues
 
 		if (pybind11::hasattr(m_module, "__file__")) // Registre the file path for hotloading later
 		{
@@ -20,13 +19,13 @@ bool Bwt::PyScripts::InitModule(const char* filename)
 			std::cout << "Module has no __file__ (built-in module?)" << std::endl;
 		}
 
-		for (pybind11::handle item : attrs)
+		pybind11::dict module_dict = m_module.attr("__dict__");// Get all attribues
+		for (auto item : module_dict)
 		{
-			std::string name = pybind11::str(item);
+			std::string name = pybind11::str(item.first);
+			if (name.substr(0, 2) == "__") continue;
 
-			pybind11::object obj = m_module.attr(name.c_str());
-
-			if (name.substr(0, 2) == "__") continue; // Ignore private variable
+			pybind11::object obj = pybind11::reinterpret_borrow<pybind11::object>(item.second);
 
 			AddObj(name, obj);
 		}
@@ -44,10 +43,14 @@ void Bwt::PyScripts::AddObj(std::string name, pybind11::object& obj)
 	switch (PyInspector::get_type(obj))
 	{
 	case PyInspector::PyType::Function:
-		m_functions.emplace(name, obj);
+		if (name == "Start")       m_Start = obj;
+		else if (name == "Update") m_Update = obj;
+		else if (name == "LateUpdate") m_LateUpdate = obj;
+		else if (name == "FixedUpdate") m_FixedUpdate = obj;
+		m_functions.insert_or_assign(name, obj);
 		break;
 	case PyInspector::PyType::Class:
-		m_functions.emplace(name, obj);
+		m_functions.insert_or_assign(name, obj);
 		break;
 	default:
 		std::cerr << "[Python] Not handled obj" << name << " : " << PyInspector::TypeToStr(PyInspector::get_type(obj)) << "\n";
@@ -78,7 +81,7 @@ bool Bwt::PyScripts::Reload()
 		m_classes.clear();
 		m_variables.clear();
 
-		pybind11::dict module_dict = m_module.attr("__dir__");
+		pybind11::dict module_dict = m_module.attr("__dict__");
 		for (auto item : module_dict)
 		{
 			std::string name = pybind11::str(item.first);
@@ -102,8 +105,54 @@ bool Bwt::PyScripts::Reload()
 
 bool Bwt::PyScripts::CheckAndReload()
 {
-	if (std::filesystem::last_write_time(m_path) != m_lastWrite) {
-		return Reload();
+	try
+	{
+		if (!std::filesystem::exists(m_path))
+			return false;
+
+		auto currentWrite = std::filesystem::last_write_time(m_path);
+
+		if (currentWrite != m_lastWrite)
+		{
+			m_lastWrite = currentWrite;
+			return Reload();
+		}
 	}
+	catch (const std::filesystem::filesystem_error& e)
+	{
+		std::cerr << "Filesystem error: " << e.what() << std::endl;
+	}
+
 	return false;
+}
+
+
+void Bwt::PyScripts::Start()
+{
+	if (m_Start && !m_Start.is_none())
+		m_Start();
+}
+
+void Bwt::PyScripts::Update(float deltaTime)
+{
+	try {
+		if (m_Update && !m_Update.is_none())
+			m_Update(deltaTime);
+	}
+	catch (const pybind11::error_already_set& e)
+	{
+		std::cerr << "Python exception in " << m_name << ": " << e.what() << std::endl;
+	}
+}
+
+void Bwt::PyScripts::FixedUpdate(float deltaTime)
+{
+	if (m_FixedUpdate && !m_FixedUpdate.is_none())
+		m_FixedUpdate(deltaTime);
+}
+
+void Bwt::PyScripts::LateUpdate()
+{
+	if (m_LateUpdate && !m_LateUpdate.is_none())
+		m_LateUpdate();
 }

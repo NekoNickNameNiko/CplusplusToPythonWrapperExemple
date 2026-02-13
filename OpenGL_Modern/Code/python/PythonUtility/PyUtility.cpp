@@ -61,6 +61,7 @@ bool Bwt::PyUtility::ExecuteScript(std::string& name)
 	{
 		std::cerr << "Python error: " << e.what() << "\n";
 	}
+	return false;
 }
 
 bool Bwt::PyUtility::LoadModule(std::string& name)
@@ -77,6 +78,7 @@ bool Bwt::PyUtility::LoadModule(std::string& name)
 	{
 		std::cerr << "Python error: " << e.what() << "\n";
 	}
+	return false;
 }
 
 Bwt::PyScripts* Bwt::PyUtility::GetModule(std::string& name)
@@ -84,14 +86,25 @@ Bwt::PyScripts* Bwt::PyUtility::GetModule(std::string& name)
 	auto script = m_pyScripts.find(name);
 	if (script == m_pyScripts.end())
 	{
+		// Handle unloaded module call
+		if (LoadModule(name))
+			return m_pyScripts[name].get();
 		throw std::runtime_error("Script doesn't exist or is not initialized");
 	}
 	return script->second.get();
 }
 
-void Bwt::PyUtility::HotReload()
+int Bwt::PyUtility::HotReload()
 {
-	std::filesystem::file_time_type last_write_time(const std::filesystem::path& );
+	int scriptReloaded = 0;
+	for (auto it = m_pyScripts.begin() ; it != m_pyScripts.end(); it++)
+	{
+		if (it->second.get()->CheckAndReload())
+			scriptReloaded++;
+	}
+	if (scriptReloaded != 0)
+		std::cout << scriptReloaded << " has been Hot Reloaded" << std::endl;
+	return scriptReloaded;
 }
 
 void Bwt::PyUtility::Print(const char* filename)

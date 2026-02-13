@@ -18,6 +18,12 @@ namespace Bwt
 		std::map<std::string, pybind11::object> m_classes;
 		std::map<std::string, pybind11::object> m_variables;
 
+
+		// Unity like call
+		pybind11::object m_Start;
+		pybind11::object m_Update;
+		pybind11::object m_LateUpdate;
+		pybind11::object m_FixedUpdate;
 	public:
 		PyScripts() = default;
 		~PyScripts() = default;
@@ -25,9 +31,10 @@ namespace Bwt
 		bool InitModule(const char* filename);
 		void AddObj(std::string name, pybind11::object& obj);
 		pybind11::object GetFunction(const std::string& name);
+		std::string GetName() const { return m_name; };
 
+		// HotReload
 		bool Reload();
-
 		bool CheckAndReload();
 
 		template<typename... Args>
@@ -51,5 +58,10 @@ namespace Bwt
 				std::cerr << "Python exception in " << _name << ": " << e.what() << std::endl;
 			}
 		}
+
+		void Start(); // One time at begin
+		void Update(float deltaTime); // Every frame
+		void FixedUpdate(float deltaTime); // Every time, call once
+		void LateUpdate();  // End of the frame
 	};
 }

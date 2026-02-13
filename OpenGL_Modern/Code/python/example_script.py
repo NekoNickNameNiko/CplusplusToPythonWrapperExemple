@@ -2,16 +2,29 @@
 # ------------------
 # Fonctions
 # ------------------
+
 def greet():
     print("Hello from Python!")
 
 def add(a, b):
-    return a + b
+    print(a + b)
 
 def update_camera(camera):
     # exemple d'appel sur un objet C++ passé
     camera.move(1.0, 0.0, 0.0)
     print("Camera updated by Python")
+
+a = 0
+b = 0
+
+def Update(deltatime: float = 0):
+    global a
+    a += 1
+
+def FixedUpdate(deltatime: float = 0):
+    global b
+    b += 1
+    print(a)
 
 # ------------------
 # Classes
