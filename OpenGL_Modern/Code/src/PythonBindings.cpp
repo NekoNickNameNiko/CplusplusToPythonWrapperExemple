@@ -1,11 +1,11 @@
-#include <pybind11/pybind11.h>
+#include <pybind11/embed.h>
 #include "camera.h"
 #include "../../Toolbox3D/Include/Vector4.h"
 
 namespace py = pybind11;
 using namespace Bwt::LowRenderer;
 
-PYBIND11_MODULE(BwtEngine, m)
+PYBIND11_EMBEDDED_MODULE(BwtEngine, m)
 {
 	m.doc() = "Module de bind des classes c++ vers python";
 

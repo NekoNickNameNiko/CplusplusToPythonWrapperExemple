@@ -1,7 +1,7 @@
 #pragma once
 
 
-
+#include <pybind11/pybind11.h>
 #include <shader.h>
 #include <camera.h>
 #include <buffer.h>
@@ -48,7 +48,7 @@ namespace Bwt
 			static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 			static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
-			void Run(Scene* scene);
+			void Run(Scene* scene, pybind11::module_& py_script);
 
 		};
 	}

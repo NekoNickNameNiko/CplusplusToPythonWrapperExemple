@@ -29,6 +29,7 @@
     <ClCompile Include="Code\src\Light.cpp" />
     <ClCompile Include="Code\src\material.cpp" />
     <ClCompile Include="Code\src\sceneNode.cpp" />
+    <ClCompile Include="Code\src\PythonBindings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\include\application.h" />
@@ -68,5 +69,7 @@
     <None Include="Toolbox3D\Inline\Matrix3.inl" />
     <None Include="Toolbox3D\Inline\Matrix4.inl" />
     <None Include="Toolbox3D\Inline\Matrix2.inl" />
+    <None Include="Code\src\CameraLogic.py" />
+    <None Include="CameraLogic.py" />
   </ItemGroup>
 </Project>

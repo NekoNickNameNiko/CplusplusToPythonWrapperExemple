@@ -138,6 +138,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Code\src\material.cpp" />
+    <ClCompile Include="Code\src\PythonBindings.cpp" />
     <ClCompile Include="Code\src\scene.cpp" />
     <ClCompile Include="Code\src\Light.cpp" />
     <ClCompile Include="Code\src\model.cpp" />
@@ -201,6 +202,8 @@
     <ClInclude Include="Toolbox3D\Include\VectorND.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CameraLogic.py" />
+    <None Include="Code\src\CameraLogic.py" />
     <None Include="Toolbox3D\Inline\Matrix2.inl" />
     <None Include="Toolbox3D\Inline\Matrix3.inl" />
     <None Include="Toolbox3D\Inline\Matrix4.inl" />

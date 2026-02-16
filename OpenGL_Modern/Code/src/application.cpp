@@ -1,3 +1,5 @@
+#include <pybind11/pybind11.h>
+#include <pybind11/embed.h>
 #include "application.h"
 
 #include <exception>
@@ -13,6 +15,7 @@
 #include <buffer.h>
 
 #include <glad.h>
+namespace py = pybind11;
 
 Bwt::LowRenderer::Camera Bwt::Core::Application::camera = { {0.f, 0.f, 3.f}, 
 Matrix4::GetPerspectiveMatrix(1980.f, 1080.f, 0.001f, 100.f, 90.f) };
@@ -113,12 +116,33 @@ void Bwt::Core::Application::scroll_callback(GLFWwindow* window, double xoffset,
 	}
 }
 
-void Bwt::Core::Application::Run(Scene* scene)
+void Bwt::Core::Application::Run(Scene* scene, pybind11::module_& py_script)
 {
 	float angle = 0.f;
 
+	auto py_update_func = py_script.attr("update_camera");
+
 	while (!glfwWindowShouldClose(window))
 	{
+		if (glfwGetKey(window, GLFW_KEY_F5) == GLFW_PRESS)
+		{
+			try {
+				py_script.reload();
+				py_update_func = py_script.attr("update_camera");
+				std::cout << "Python Script Reloaded!" << std::endl;
+			}
+			catch (py::error_already_set& e) {
+				std::cerr << "Reload Error: " << e.what() << std::endl;
+			}
+		}
+
+		try {
+			py_update_func(&camera);
+		}
+		catch (py::error_already_set& e) {
+			std::cerr << "Python Runtime Error: " << e.what() << std::endl;
+		}
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.1f, 0.1f, 1.f, 1.f);
 
