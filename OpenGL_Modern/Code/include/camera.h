@@ -21,7 +21,6 @@ namespace Bwt
 			Matrix4 projection;
 			Matrix4 vpMatrix;
 
-			void Update();
 			void SoftUpdate();
 
 		public:
@@ -36,6 +35,7 @@ namespace Bwt
 			Camera(Bwt::Core::Maths::Vector3 position, Matrix4 projection);
 			~Camera();
 
+			void Update();
 			void SetProjectionMatrix(const Matrix4& proj);
 			Matrix4 GetVPMatrix(bool b);
 			void Move(Bwt::Core::Maths::Vector3 motion);
