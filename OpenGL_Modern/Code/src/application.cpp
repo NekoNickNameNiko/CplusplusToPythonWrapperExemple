@@ -73,7 +73,7 @@ void Bwt::Core::Application::RemoveShaderProgram(Bwt::Resources::Shader* shader)
 
 void Bwt::Core::Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_W && (action == GLFW_REPEAT || action == GLFW_PRESS))
+	/*if (key == GLFW_KEY_W && (action == GLFW_REPEAT || action == GLFW_PRESS))
 	{
 		camera.Move(camera.transform.forward * camera.speed);
 		std::cout << camera.transform.position << std::endl;
@@ -105,7 +105,7 @@ void Bwt::Core::Application::key_callback(GLFWwindow* window, int key, int scanc
 	if (key == GLFW_KEY_E && (action == GLFW_REPEAT || action == GLFW_PRESS))
 	{
 		camera.Rotate({ 0.f, -camera.speedRotation, 0.f });
-	}
+	}*/
 }
 
 void Bwt::Core::Application::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
