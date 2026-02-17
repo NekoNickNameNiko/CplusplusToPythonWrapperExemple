@@ -108,7 +108,10 @@ bool Bwt::PyScripts::CheckAndReload()
 	try
 	{
 		if (!std::filesystem::exists(m_path))
+		{
+			std::cout << "File doesn't exist : " << m_path << std::endl;
 			return false;
+		}
 
 		auto currentWrite = std::filesystem::last_write_time(m_path);
 

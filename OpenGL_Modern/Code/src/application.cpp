@@ -105,7 +105,7 @@ void Bwt::Core::Application::key_callback(GLFWwindow* window, int key, int scanc
 	}
 	if (key == GLFW_KEY_F5 && action == GLFW_PRESS)
 	{
-		Bwt::PyUtility::HotReload();
+		std::cout << "Hotreload : " << Bwt::PyUtility::HotReload() << " files updated" << std::endl;
 	}
 	if (key == GLFW_KEY_F6 && action == GLFW_PRESS)
 	{

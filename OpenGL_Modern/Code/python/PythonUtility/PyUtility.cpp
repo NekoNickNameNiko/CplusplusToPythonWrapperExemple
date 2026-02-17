@@ -5,10 +5,30 @@
 #include "PyScripts.h"
 #include "PyInspector.h"
 
+#include <libloaderapi.h>
+namespace fs = std::filesystem;
+
 std::unique_ptr<pybind11::scoped_interpreter> Bwt::PyUtility::m_interpreter;
 bool Bwt::PyUtility::m_initialized = false;
 std::unordered_map<std::string, std::unique_ptr<Bwt::PyScripts>> Bwt::PyUtility::m_pyScripts;
 std::vector<std::string> Bwt::PyUtility::m_paths;
+
+
+// Jacob-Tate/snippet.cpp
+// https://gist.github.com/Jacob-Tate/7b326a086cf3f9d46e32315841101109
+// 2019-11-19
+static std::filesystem::path abs_exe_directory()
+{
+#if defined(_MSC_VER)
+	wchar_t path[FILENAME_MAX] = { 0 };
+	GetModuleFileNameW(nullptr, path, FILENAME_MAX);
+	return std::filesystem::path(path).parent_path().string();
+#else
+	char path[FILENAME_MAX];
+	ssize_t count = readlink("/proc/self/exe", path, FILENAME_MAX);
+	return std::filesystem::path(std::string(path, (count > 0) ? count : 0)).parent_path().string();
+#endif
+}
 
 bool Bwt::PyUtility::Initialize()
 {
@@ -17,15 +37,28 @@ bool Bwt::PyUtility::Initialize()
 		try {
 			m_interpreter = std::make_unique<pybind11::scoped_interpreter>();
 
+			Bwt::PyUtility::AddNewPath(""); // add default path for python script
 			// Configuration une seule fois
 			pybind11::module_ sys = pybind11::module_::import("sys");
 
-			for(std::string path : m_paths)
+
+			fs::path PythonDir = "Code/python/PyScripts"; // Only for IDE
+			fs::path exePythonDir = abs_exe_directory() / "Python";
+			fs::create_directories(exePythonDir);
+
+			for (const std::string& path : m_paths)
 			{
-				std::filesystem::path p = path;
-				p = std::filesystem::absolute(p);
-				sys.attr("path").attr("append")(p.string());
+				if (fs::exists(PythonDir))
+				{
+					sys.attr("path").attr("append")(fs::absolute(PythonDir / path).string()); // IDE mode
+				}
+				else if (fs::exists(exePythonDir))
+				{
+					sys.attr("path").attr("append")((exePythonDir / path).string()); // Runtime mode
+				}
 			}
+
+			sys.attr("path").attr("append")(exePythonDir.string());
 
 			// Get all path
 			pybind11::list path_list = sys.attr("path");
@@ -40,7 +73,7 @@ bool Bwt::PyUtility::Initialize()
 			m_initialized = true;
 			return true;
 		}
-		catch (const std::exception& e) 
+		catch (const std::exception& e)
 		{
 			std::cerr << "Failed to initialize Python interpreter: " << e.what() << "\n";
 			return false;
@@ -109,7 +142,18 @@ Bwt::PyScripts* Bwt::PyUtility::GetModule(const std::string& name)
 int Bwt::PyUtility::HotReload()
 {
 	int scriptReloaded = 0;
-	for (auto it = m_pyScripts.begin() ; it != m_pyScripts.end(); it++)
+
+	fs::path PythonDir = "Code/python/PyScripts"; // Only for IDE
+	if (fs::exists(PythonDir))
+	{
+		pybind11::module_ sys = pybind11::module_::import("sys");
+		for (const std::string& path : m_paths)
+		{
+			sys.attr("path").attr("append")(fs::absolute(PythonDir / path).string()); // IDE mode
+		}
+	}
+
+	for (auto it = m_pyScripts.begin(); it != m_pyScripts.end(); it++)
 	{
 		if (it->second.get()->CheckAndReload())
 			scriptReloaded++;

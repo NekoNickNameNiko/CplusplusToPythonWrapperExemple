@@ -161,8 +161,8 @@
       <AdditionalDependencies>opengl32.lib;glfw3dll.lib;python313.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /i /e /y /f "$(ProjectDir)Code\python\PyScripts" "$(TargetDir)"
-xcopy /i /e /y /f "$(ProjectDir)Assets" "$(TargetDir)\Assets"</Command>
+      <Command>xcopy /i /e /y /f "$(ProjectDir)Assets" "$(TargetDir)Assets\"
+xcopy /i /e /y /f "$(ProjectDir)Code/python/PyScripts" "$(TargetDir)Python"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='python|x64'">
@@ -181,8 +181,8 @@ xcopy /i /e /y /f "$(ProjectDir)Assets" "$(TargetDir)\Assets"</Command>
       <AdditionalDependencies>opengl32.lib;glfw3dll.lib;python313.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /i /e /y /f "$(ProjectDir)Code\python\PyScripts" "$(TargetDir)"
-xcopy /i /e /y /f "$(ProjectDir)Assets" "$(TargetDir)\Assets"</Command>
+      <Command>xcopy /i /e /y /f "$(ProjectDir)Assets" "$(TargetDir)Assets\"
+xcopy /i /e /y /f "$(ProjectDir)Code/python/PyScripts" "$(TargetDir)Python"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -205,8 +205,8 @@ xcopy /i /e /y /f "$(ProjectDir)Assets" "$(TargetDir)\Assets"</Command>
       <AdditionalDependencies>opengl32.lib;glfw3dll.lib;python313.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /i /e /y /f "$(ProjectDir)Code\python\PyScripts" "$(TargetDir)"
-xcopy /i /e /y /f "$(ProjectDir)Assets" "$(TargetDir)\Assets"</Command>
+      <Command>xcopy /i /e /y /f "$(ProjectDir)Assets" "$(TargetDir)Assets\"
+xcopy /i /e /y /f "$(ProjectDir)Code/python/PyScripts" "$(TargetDir)Python"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
