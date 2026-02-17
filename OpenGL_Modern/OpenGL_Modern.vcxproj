@@ -271,7 +271,6 @@
     <ClInclude Include="Toolbox3D\Include\VectorND.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Code\python\engine.pyd" />
     <None Include="Code\python\example_script.py" />
     <None Include="Toolbox3D\Inline\Matrix2.inl" />
     <None Include="Toolbox3D\Inline\Matrix3.inl" />
