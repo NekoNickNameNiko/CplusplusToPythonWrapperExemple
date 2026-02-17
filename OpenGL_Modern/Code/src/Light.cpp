@@ -96,10 +96,10 @@ Bwt::Core::Maths::Vector3 LightManager::CalculSpotLight(SpotLight light, Bwt::Co
 void Bwt::LowRenderer::PointLight::SendDataToShader(Bwt::Resources::Shader* shader) const
 {
 	float* ambient, * diffuse, * specular, * position;
-	ambient = PointLight::ambient.AsList();
-	diffuse = PointLight::diffuse.AsList();
-	specular = PointLight::specular.AsList();
-	position = PointLight::position.AsList();
+	ambient = PointLight::ambient.AsList().data();
+	diffuse = PointLight::diffuse.AsList().data();
+	specular = PointLight::specular.AsList().data();
+	position = PointLight::position.AsList().data();
 
 	shader->SetUniform4fv("pointLight.ambient", ambient);
 	shader->SetUniform4fv("pointLight.diffuse", diffuse);

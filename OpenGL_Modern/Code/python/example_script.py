@@ -12,7 +12,6 @@ def add(a, b):
 
 def update_camera(camera : engine.Camera, Direction : engine.Vector3):
     camera.move(Direction)
-    print("Camera updated by Python")
 
 def Print():
     print(dir(engine))

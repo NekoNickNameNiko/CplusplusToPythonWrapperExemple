@@ -26,7 +26,7 @@ void Bwt::LowRenderer::Model::RenderMesh(Bwt::Resources::Shader* shaderProgram, 
 	Matrix4 vp = camera->GetVPMatrix(false);
 	Matrix4 mvp = vp * model;
 
-	float* colTab = mat.GetColor().AsList();
+	float* colTab = mat.GetColor().AsList().data();
 	glUniform3fv(glGetUniformLocation(shaderProgram->id, "objectColor"), 1, colTab);
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->id, "mvp"), 1, true, mvp.tab);
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->id, "model"), 1, true, model.tab);

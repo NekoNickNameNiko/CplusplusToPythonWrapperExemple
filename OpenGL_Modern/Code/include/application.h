@@ -29,7 +29,6 @@ namespace Bwt
 			GLFWwindow* window;
 			Color bg = {0.2f, 0.3f, 0.3f, 1.f};
 			Bwt::Resources::Shader* shaderProgram;
-
 			void InitializeGladLibrary();
 
 		public:

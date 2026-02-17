@@ -16,8 +16,9 @@
 
 #include <glad.h>
 
-Bwt::LowRenderer::Camera Bwt::Core::Application::camera = { {0.f, 0.f, 3.f}, 
-Matrix4::GetPerspectiveMatrix(1980.f, 1080.f, 0.001f, 100.f, 90.f) };
+Bwt::LowRenderer::Camera Bwt::Core::Application::camera = { {0.f, 0.f, 3.f},
+Matrix4::GetPerspectiveMatrix(1980, 1080, 0.001f, 100.f, 90.f) };
+bool UpdateCameraPython = false;
 
 Bwt::Core::Application::Application(int width, int height, const char* title)
 {
@@ -30,7 +31,7 @@ Bwt::Core::Application::Application(int width, int height, const char* title)
 		glfwTerminate();
 		throw Bwt::Core::Debug::Exception::WindowCreationFailException("Creation of window failed");
 	}
-	
+
 	glfwMakeContextCurrent(window);
 
 	glfwSetKeyCallback(window, key_callback);
@@ -72,39 +73,54 @@ void Bwt::Core::Application::RemoveShaderProgram(Bwt::Resources::Shader* shader)
 
 void Bwt::Core::Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_W && (action == GLFW_REPEAT || action == GLFW_PRESS))
+	if (!UpdateCameraPython)
 	{
-		camera.Move(camera.transform.forward * camera.speed);
-		std::cout << camera.transform.position << std::endl;
+		if (key == GLFW_KEY_W && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			camera.Move(camera.transform.forward * camera.speed);
+		if (key == GLFW_KEY_S && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			camera.Move(camera.transform.forward.GetOpposed() * camera.speed);
+		if (key == GLFW_KEY_D && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			camera.Move(camera.transform.right * camera.speed);
+		if (key == GLFW_KEY_A && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			camera.Move(camera.transform.right.GetOpposed() * camera.speed);
+		if (key == GLFW_KEY_Q && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			camera.Rotate({ 0.f, camera.speedRotation, 0.f });
+		if (key == GLFW_KEY_E && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			camera.Rotate({ 0.f, -camera.speedRotation, 0.f });
+	}
+	else
+	{
+		if (key == GLFW_KEY_W && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			Bwt::PyUtility::GetModule("example_script")->Exec("update_camera", &camera, camera.transform.forward * camera.speed);
+		if (key == GLFW_KEY_S && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			Bwt::PyUtility::GetModule("example_script")->Exec("update_camera", &camera, camera.transform.forward.GetOpposed() * camera.speed);
+		if (key == GLFW_KEY_D && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			Bwt::PyUtility::GetModule("example_script")->Exec("update_camera", &camera, camera.transform.right * camera.speed);
+		if (key == GLFW_KEY_A && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			Bwt::PyUtility::GetModule("example_script")->Exec("update_camera", &camera, camera.transform.right.GetOpposed() * camera.speed);
+		if (key == GLFW_KEY_Q && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			camera.Rotate({ 0.f, camera.speedRotation, 0.f });
+		if (key == GLFW_KEY_E && (action == GLFW_REPEAT || action == GLFW_PRESS))
+			camera.Rotate({ 0.f, -camera.speedRotation, 0.f });
+	}
+	if (key == GLFW_KEY_F5 && action == GLFW_PRESS)
+	{
+		Bwt::PyUtility::HotReload();
+	}
+	if (key == GLFW_KEY_F6 && action == GLFW_PRESS)
+	{
+		if (UpdateCameraPython)
+		{
+			UpdateCameraPython = false;
+			std::cout << "Camera update from python : OFF" << std::endl;
+		}
+		else
+		{
+			UpdateCameraPython = true;
+			std::cout << "Camera update from python : ON" << std::endl;
+		}
 	}
 
-	if (key == GLFW_KEY_S && (action == GLFW_REPEAT || action == GLFW_PRESS))
-	{
-		camera.Move(camera.transform.forward.GetOpposed() * camera.speed);
-		std::cout << camera.transform.position << std::endl;
-	}
-
-	if (key == GLFW_KEY_D && (action == GLFW_REPEAT || action == GLFW_PRESS))
-	{
-		camera.Move(camera.transform.right * camera.speed);
-		std::cout << camera.transform.position << std::endl;
-	}
-
-	if (key == GLFW_KEY_A && (action == GLFW_REPEAT || action == GLFW_PRESS))
-	{
-		Bwt::PyUtility::GetModule("example_script")->Exec("update_camera", &camera, camera.transform.right.GetOpposed() * camera.speed);
-		//std::cout << camera.transform.position << std::endl;
-	}
-
-	if (key == GLFW_KEY_Q && (action == GLFW_REPEAT || action == GLFW_PRESS))
-	{
-		camera.Rotate({ 0.f, camera.speedRotation, 0.f });
-	}
-
-	if (key == GLFW_KEY_E && (action == GLFW_REPEAT || action == GLFW_PRESS))
-	{
-		camera.Rotate({ 0.f, -camera.speedRotation, 0.f });
-	}
 }
 
 void Bwt::Core::Application::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
@@ -118,28 +134,29 @@ void Bwt::Core::Application::scroll_callback(GLFWwindow* window, double xoffset,
 void Bwt::Core::Application::Run(Scene* scene)
 {
 	float angle = 0.f;
-	std::string scriptName = "example_script";
 	Bwt::PyUtility::Initialize();
 	//Bwt::PyUtility::Print("example_script");
-	Bwt::PyUtility::LoadModule(scriptName);
-	Bwt::PyUtility::GetModule(scriptName)->Exec("greet");
-	Bwt::PyUtility::GetModule(scriptName)->Exec("add", 5, 5);
+	Bwt::PyUtility::LoadModule("example_script");
+	Bwt::PyUtility::GetModule("example_script")->Exec("greet");
+	Bwt::PyUtility::GetModule("example_script")->Exec("add", 5, 5);
 
-	Bwt::PyScripts* script = Bwt::PyUtility::GetModule(scriptName);
+	Bwt::PyScripts* script = Bwt::PyUtility::GetModule("example_script");
 	script->Start();
 
 	using clock = std::chrono::steady_clock;
 
+	auto now = clock::now();
 	auto last = clock::now();
+	float dt = 0.f;
 	float accumulator = 0.f;
-	const float fixedStep = 1.0f; // 1 second test
+	const float fixedStep = 1.0f; // 1 second test for fixed update
 
 	while (!glfwWindowShouldClose(window))
 	{
-		auto now = clock::now();
+		now = clock::now();
 		std::chrono::duration<float> delta = now - last;
 		last = now;
-		float dt = delta.count(); // secondes en float
+		dt = delta.count(); // second in float
 		accumulator += dt;
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -151,7 +168,6 @@ void Bwt::Core::Application::Run(Scene* scene)
 		{
 			script->FixedUpdate(fixedStep);
 			accumulator -= fixedStep;
-			Bwt::PyUtility::HotReload();
 		}
 
 		script->LateUpdate();
@@ -161,7 +177,7 @@ void Bwt::Core::Application::Run(Scene* scene)
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
-		angle+= 0.1f;
+		angle += 0.1f;
 	}
 }
 

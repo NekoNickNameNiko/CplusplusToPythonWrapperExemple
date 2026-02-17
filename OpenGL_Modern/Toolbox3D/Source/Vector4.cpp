@@ -86,8 +86,7 @@ Vector4 Bwt::Core::Maths::Vector4::operator*(const Vector4& vec)
 	return ElementWiseProduct(vec);
 }
 
-float* Bwt::Core::Maths::Vector4::AsList() const
+std::array<float, 4> Bwt::Core::Maths::Vector4::AsList() const
 {
-	float result[4] = { x, y, z, w };
-	return result;
+	return { x, y, z, w };
 }

@@ -18,6 +18,9 @@
 
 int main(void)
 {
+	// Python Init
+	Bwt::PyUtility::AddNewPath("Code/python"); // add default path for python script
+
 	{
 		Bwt::Core::Application app{ 1920, 1080, "Scene Modern OpenGL" };   
 		Bwt::Resources::Shader s{"Assets/Shaders/Shader.vert", "Assets/Shaders/Shader.frag"};
@@ -99,7 +102,6 @@ int main(void)
 
 		app.Run(&myScene);
 	}
-	Bwt::PyUtility PyManager;
 
 	return 0;
 }

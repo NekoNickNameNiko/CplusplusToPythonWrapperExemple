@@ -19,9 +19,9 @@ Bwt::Core::Maths::Vector3 Bwt::Resources::Material::GetColor() const
 void Bwt::Resources::Material::SendDataToShaderPrgram(Shader shader)
 {
 	float *ambient, *diffuse, *specular;
-	ambient = Material::ambient.AsList();
-	diffuse = Material::diffuse.AsList();
-	specular = Material::specular.AsList();
+	ambient = Material::ambient.AsList().data();
+	diffuse = Material::diffuse.AsList().data();
+	specular = Material::specular.AsList().data();
 
 	shader.SetUniform3fv("material.ambient", ambient);
 	shader.SetUniform3fv("material.diffuse", diffuse);

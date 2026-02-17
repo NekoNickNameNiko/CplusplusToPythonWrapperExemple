@@ -124,10 +124,9 @@ void Vector3::Rotation(float angleX, float angleY, float angleZ)
 	z = z2;
 }
 
-float* Bwt::Core::Maths::Vector3::AsList() const
+std::array<float, 3>  Bwt::Core::Maths::Vector3::AsList() const
 {
-	float tab[3]{x, y, z};
-	return tab;
+	return { x, y, z };
 }
 
 std::ostream& Bwt::Core::Maths::operator<<(std::ostream& os, const Vector3& vec)

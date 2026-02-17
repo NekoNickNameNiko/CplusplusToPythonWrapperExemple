@@ -128,7 +128,7 @@ namespace Bwt
 				/// <param name="N">Surface Normal</param>
 				/// <returns>The result of the perspective function, or 0 if t is less than or equal to 0.</returns>
 				static Vector3 Reflect(Vector3 I, Vector3 N);
-				
+
 				// -------------------------------------------------------------------------------- //	
 				// Products & angles
 				// -------------------------------------------------------------------------------- //
@@ -183,7 +183,7 @@ namespace Bwt
 					std::cout << "x : " << x << " y : " << y << " z : " << z << "\n";
 				}
 
-				float* AsList() const;
+				std::array<float, 3> AsList() const;
 
 				// -------------------------------------------------------------------------------- //	
 				// Overload operators inline
@@ -241,7 +241,7 @@ namespace Bwt
 					return Vector3(x * scalar, y * scalar, z * scalar);
 				}
 
-				inline Vector3 operator-() const 
+				inline Vector3 operator-() const
 				{
 					return Vector3{ -x, -y, -z };
 				}

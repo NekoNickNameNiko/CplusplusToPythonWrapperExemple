@@ -8,6 +8,7 @@
 std::unique_ptr<pybind11::scoped_interpreter> Bwt::PyUtility::m_interpreter;
 bool Bwt::PyUtility::m_initialized = false;
 std::unordered_map<std::string, std::unique_ptr<Bwt::PyScripts>> Bwt::PyUtility::m_pyScripts;
+std::vector<std::string> Bwt::PyUtility::m_paths;
 
 bool Bwt::PyUtility::Initialize()
 {
@@ -19,10 +20,12 @@ bool Bwt::PyUtility::Initialize()
 			// Configuration une seule fois
 			pybind11::module_ sys = pybind11::module_::import("sys");
 
-			std::filesystem::path p = "Code/python";  // TODO : Change to list editable
-			p = std::filesystem::absolute(p);
-
-			sys.attr("path").attr("append")(p.string());
+			for(std::string path : m_paths)
+			{
+				std::filesystem::path p = path;
+				p = std::filesystem::absolute(p);
+				sys.attr("path").attr("append")(p.string());
+			}
 
 			// Get all path
 			pybind11::list path_list = sys.attr("path");
@@ -37,7 +40,9 @@ bool Bwt::PyUtility::Initialize()
 			m_initialized = true;
 			return true;
 		}
-		catch (const std::exception& e) {
+		catch (const std::exception& e) 
+		{
+			std::cerr << "Failed to initialize Python interpreter: " << e.what() << "\n";
 			return false;
 		}
 	}
@@ -50,7 +55,14 @@ void Bwt::PyUtility::Shutdown()
 	m_initialized = false;
 }
 
-bool Bwt::PyUtility::ExecuteScript(std::string& name)
+bool Bwt::PyUtility::AddNewPath(const std::string& path)
+{
+	if (!m_paths.emplace_back(path).empty())
+		return true;
+	return false;
+}
+
+bool Bwt::PyUtility::ExecuteScript(const std::string& name)
 {
 	try {
 		pybind11::module_ script = pybind11::module::import(name.c_str());

@@ -28,13 +28,13 @@ void Bwt::Resources::Scene::renderScene(Shader* shaderProgram, Bwt::LowRenderer:
     PointLight p = lightManager.GetPointLights().at(0);
     p.SendDataToShader(shaderProgram);
 
-    float* colorTab = lightManager.GetPointLights().at(0).colorLight.AsList();
+    float* colorTab = lightManager.GetPointLights().at(0).colorLight.AsList().data();
     glUniform3fv(glGetUniformLocation(shaderProgram->id, "lightColor"), 1, colorTab);
 
-    float* tabulation = lightManager.GetPointLights().at(0).position.AsList();
+    float* tabulation = lightManager.GetPointLights().at(0).position.AsList().data();
     glUniform3fv(glGetUniformLocation(shaderProgram->id, "lightPosition"), 1, tabulation);
 
-    float* camvtab = camera->transform.position.AsList();
+    float* camvtab = camera->transform.position.AsList().data();
     glUniform3fv(glGetUniformLocation(shaderProgram->id, "viewPos"), 1, camvtab);
 
     for (int i = 0; i < meshes.size(); i++)

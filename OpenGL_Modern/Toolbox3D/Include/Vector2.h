@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cassert>
 #include <immintrin.h>
+#include <array>
 
 #define PI 3.14159265359f
 

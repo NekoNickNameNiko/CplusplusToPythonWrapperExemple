@@ -208,7 +208,7 @@ namespace Bwt
 					return (index == 0) ? x : (index == 1) ? y : (index == 2) ? z : w;
 				}
 
-				float* AsList() const;
+				std::array<float, 4> AsList() const;
 			};
 		}
 	}
