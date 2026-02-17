@@ -77,6 +77,6 @@
     <None Include="Toolbox3D\Inline\Matrix3.inl" />
     <None Include="Toolbox3D\Inline\Matrix4.inl" />
     <None Include="Toolbox3D\Inline\Matrix2.inl" />
-    <None Include="Code\python\example_script.py" />
+    <None Include="Code\python\PyScripts\example_script.py" />
   </ItemGroup>
 </Project>

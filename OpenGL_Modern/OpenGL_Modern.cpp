@@ -19,7 +19,7 @@
 int main(void)
 {
 	// Python Init
-	Bwt::PyUtility::AddNewPath("Code/python"); // add default path for python script
+	Bwt::PyUtility::AddNewPath("Code/python/PyScripts"); // add default path for python script
 
 	{
 		Bwt::Core::Application app{ 1920, 1080, "Scene Modern OpenGL" };   
