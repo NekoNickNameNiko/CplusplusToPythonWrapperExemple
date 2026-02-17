@@ -64,7 +64,7 @@ bool Bwt::PyUtility::ExecuteScript(std::string& name)
 	return false;
 }
 
-bool Bwt::PyUtility::LoadModule(std::string& name)
+bool Bwt::PyUtility::LoadModule(const std::string& name)
 {
 	try {
 		std::unique_ptr<PyScripts> newScript = std::make_unique<PyScripts>();;
@@ -81,7 +81,7 @@ bool Bwt::PyUtility::LoadModule(std::string& name)
 	return false;
 }
 
-Bwt::PyScripts* Bwt::PyUtility::GetModule(std::string& name)
+Bwt::PyScripts* Bwt::PyUtility::GetModule(const std::string& name)
 {
 	auto script = m_pyScripts.find(name);
 	if (script == m_pyScripts.end())

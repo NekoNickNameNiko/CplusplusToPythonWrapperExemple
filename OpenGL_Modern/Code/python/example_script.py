@@ -2,6 +2,7 @@
 # ------------------
 # Fonctions
 # ------------------
+import engine # Py module for engine interaction
 
 def greet():
     print("Hello from Python!")
@@ -9,10 +10,12 @@ def greet():
 def add(a, b):
     print(a + b)
 
-def update_camera(camera):
-    # exemple d'appel sur un objet C++ passé
-    camera.move(1.0, 0.0, 0.0)
+def update_camera(camera : engine.Camera, Direction : engine.Vector3):
+    camera.move(Direction)
     print("Camera updated by Python")
+
+def Print():
+    print(dir(engine))
 
 a = 0
 b = 0

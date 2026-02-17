@@ -9,6 +9,8 @@
 #include <math.h>
 
 #include "../../Toolbox3D/Include/Matrix4.h"
+#include <../Python/PythonUtility/PyUtility.h>
+#include <../Python/PythonUtility/PyScripts.h>
 #include <camera.h>
 #include <buffer.h>
 
@@ -90,8 +92,8 @@ void Bwt::Core::Application::key_callback(GLFWwindow* window, int key, int scanc
 
 	if (key == GLFW_KEY_A && (action == GLFW_REPEAT || action == GLFW_PRESS))
 	{
-		camera.Move(camera.transform.right.GetOpposed() * camera.speed);
-		std::cout << camera.transform.position << std::endl;
+		Bwt::PyUtility::GetModule("example_script")->Exec("update_camera", &camera, camera.transform.right.GetOpposed() * camera.speed);
+		//std::cout << camera.transform.position << std::endl;
 	}
 
 	if (key == GLFW_KEY_Q && (action == GLFW_REPEAT || action == GLFW_PRESS))
@@ -116,15 +118,43 @@ void Bwt::Core::Application::scroll_callback(GLFWwindow* window, double xoffset,
 void Bwt::Core::Application::Run(Scene* scene)
 {
 	float angle = 0.f;
+	std::string scriptName = "example_script";
+	Bwt::PyUtility::Initialize();
+	//Bwt::PyUtility::Print("example_script");
+	Bwt::PyUtility::LoadModule(scriptName);
+	Bwt::PyUtility::GetModule(scriptName)->Exec("greet");
+	Bwt::PyUtility::GetModule(scriptName)->Exec("add", 5, 5);
+
+	Bwt::PyScripts* script = Bwt::PyUtility::GetModule(scriptName);
+	script->Start();
+
+	using clock = std::chrono::steady_clock;
+
+	auto last = clock::now();
+	float accumulator = 0.f;
+	const float fixedStep = 1.0f; // 1 second test
 
 	while (!glfwWindowShouldClose(window))
 	{
+		auto now = clock::now();
+		std::chrono::duration<float> delta = now - last;
+		last = now;
+		float dt = delta.count(); // secondes en float
+		accumulator += dt;
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.1f, 0.1f, 1.f, 1.f);
 
-		using namespace Bwt::Core::Maths;
+		script->Update(dt);
 
-		Matrix4 model = Matrix4::CreateTransformMatrix({ 0.f, 0.f, 0.f }, { 0.f, angle * (PI/180), 0.f}, {1.f, 1.f, 1.f});
+		while (accumulator >= fixedStep)
+		{
+			script->FixedUpdate(fixedStep);
+			accumulator -= fixedStep;
+			Bwt::PyUtility::HotReload();
+		}
+
+		script->LateUpdate();
 
 		scene->renderScene(shaderProgram, &camera, angle);
 

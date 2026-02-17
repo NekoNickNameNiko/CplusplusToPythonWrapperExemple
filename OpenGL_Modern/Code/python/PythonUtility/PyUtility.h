@@ -19,8 +19,8 @@ namespace Bwt
 		static bool Initialize();
 		static void Shutdown();
 		static bool ExecuteScript(std::string& name);
-		static bool LoadModule(std::string& name);
-		static PyScripts* GetModule(std::string& name);
+		static bool LoadModule(const std::string& name);
+		static PyScripts* GetModule(const std::string& name);
 		static int HotReload();
 		static bool IsInitialized() { return m_initialized; }
 		static void Print(const char* filename);

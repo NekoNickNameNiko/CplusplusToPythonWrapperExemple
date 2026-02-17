@@ -32,6 +32,9 @@
     <ClCompile Include="Code\python\PythonUtility\PyUtility.cpp" />
     <ClCompile Include="Code\python\PythonUtility\PyScripts.cpp" />
     <ClCompile Include="Code\python\PythonUtility\PyInspector.cpp" />
+    <ClCompile Include="Code\python\PyBind\bind_camera.cpp" />
+    <ClCompile Include="Code\python\PyBind\bind_vector3.cpp" />
+    <ClCompile Include="Code\python\PyBind\module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\include\application.h" />
@@ -75,5 +78,6 @@
     <None Include="Toolbox3D\Inline\Matrix4.inl" />
     <None Include="Toolbox3D\Inline\Matrix2.inl" />
     <None Include="Code\python\example_script.py" />
+    <None Include="Code\python\engine.pyd" />
   </ItemGroup>
 </Project>
