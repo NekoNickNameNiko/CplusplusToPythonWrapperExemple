@@ -25,8 +25,10 @@ def Update(deltatime: float = 0):
 
 def FixedUpdate(deltatime: float = 0):
     global b
+    global a
     b += 1
     print(a)
+    a = 0
 
 # ------------------
 # Classes

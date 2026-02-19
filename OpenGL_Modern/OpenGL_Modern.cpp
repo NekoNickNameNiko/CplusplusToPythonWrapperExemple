@@ -34,19 +34,7 @@ int main(void)
 		glCullFace(GL_FRONT);
 		glFrontFace(GL_CW);
 		glEnable(GL_DEPTH_TEST);
-
-		float vertices[] = {
-		 -1,0,-1   ,1.f, 0.f, 0.f,
-		 1,0,-1   ,0.f, 1.f, 0.f, 
-		 1,0,1    ,0.f, 0.f, 1.f,      
-		 -1,0,1   ,1.f, 1.f, 0.f,
-		 0,2,0   ,0.f, 1.f, 1.f
-		};
-		unsigned int indices[] = {
-		   0,4,1,1,4,2,2,4,3,3,4,0,
-		   3,0,2,2,0,1
-		};  
-
+		glfwSwapInterval(0);
 		Mesh smash{};
 		if (!smash.LoadFromOBJ("Assets/Obj/cubeTriangulate.obj"))
 		{
@@ -75,14 +63,6 @@ int main(void)
 		texture->Bind(GL_TEXTURE0);
 		glUniform1i(smash.gSamplerLocation, 0);
 		smash.pTexture = texture;
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0); 
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(6 * sizeof(float)));
-		// End texture
 
 		Model model{ {0.f, 0.f, 0.f} };
 		model.transform.scale = { 1.f, 1.f, 1.f };
