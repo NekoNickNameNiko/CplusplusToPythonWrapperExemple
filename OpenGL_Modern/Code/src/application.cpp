@@ -119,11 +119,15 @@ void Bwt::Core::Application::scroll_callback(GLFWwindow* window, double xoffset,
 void Bwt::Core::Application::Run(Scene* scene, pybind11::module_& py_script)
 {
 	float angle = 0.f;
-
+	float lastFrameTime = 0.f;
 	auto py_update_func = py_script.attr("update_camera");
-
+	
 	while (!glfwWindowShouldClose(window))
 	{
+		float currentFrameTime = glfwGetTime();
+		float deltaTime = currentFrameTime - lastFrameTime;
+		lastFrameTime = currentFrameTime;
+
 		if (glfwGetKey(window, GLFW_KEY_F5) == GLFW_PRESS)
 		{
 			try {
@@ -137,7 +141,7 @@ void Bwt::Core::Application::Run(Scene* scene, pybind11::module_& py_script)
 		}
 
 		try {
-			py_update_func(&camera);
+			py_update_func(&camera, deltaTime);
 		}
 		catch (py::error_already_set& e) {
 			std::cerr << "Python Runtime Error: " << e.what() << std::endl;

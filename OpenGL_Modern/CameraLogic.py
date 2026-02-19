@@ -1,9 +1,8 @@
-from turtle import speed
 import BwtEngine
 
-def update_camera(cam):
-    speed : float = 0.001
-    rotationSpeed : float = 0.0005
+def update_camera(cam, deltaTime):
+    speed : float = 5 * deltaTime
+    rotationSpeed : float = 3 * deltaTime
 
     if(BwtEngine.IsKeyDown(BwtEngine.Key_W)):
         mouvement : BwtEngine.Vector3 = BwtEngine.Vector3(0, 0, -speed)

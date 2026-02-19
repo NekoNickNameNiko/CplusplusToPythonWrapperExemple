@@ -46,4 +46,6 @@ PYBIND11_EMBEDDED_MODULE(BwtEngine, m)
 
 		.def_readwrite("center", &Camera::center)
 		.def_property_readonly("position", [](Camera& self) { return self.transform.position; });
+
+
 }
